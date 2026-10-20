@@ -1,0 +1,96 @@
+:root {
+    --primary-color: #8a2be2; /* Roxo Neon */
+    --secondary-color: #00ffff; /* Ciano Neon */
+    --bg-color: #0d0d12;
+    --card-bg: #1a1a24;
+    --text-light: #ffffff;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-light);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 15px;
+    line-height: 1.6;
+}
+
+/* Títulos com efeito Neon */
+h1 {
+    font-size: 2.2rem;
+    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+h2, h3, h4 {
+    color: var(--text-light);
+}
+
+/* Botões */
+button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 5px;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+}
+
+/* Cartões dos Produtos */
+.produto, .card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid #2a2a35;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Caixas de Texto (Painel Admin) */
+input, select {
+    padding: 12px;
+    margin: 5px 0 15px 0;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background-color: #222;
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Links */
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Painel de Verificação de Idade (Fundo Escuro) */
+#modalIdade, .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
