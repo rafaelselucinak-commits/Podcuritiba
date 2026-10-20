@@ -1,380 +1,185 @@
-<link rel="stylesheet" href="style.css">
-MODAL<!-- MODAL +18 (Verificação de Idade) -->
-<div id="ageModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/95 backdrop-blur-md px-4 transition-opacity duration-300">
-    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-sm w-full text-center shadow-2xl shadow-purple-500/10">
-  MODAL      <div class="w-16 h-16 bg-purple-500/10 border border-purple-500/30 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-400">
-            <i class="fa-solid fa-shield-halved text-2xl"></i>
-        </div>
-        <h2 class="text-2xl font-black text-white mb-2">VOCÊ TEM MAIS DE 18 ANOS?</h2>
-        <p class="text-slate-400 text-sm mb-6">A venda de produtos com nicotina é proibida para menores. Por favor, confirme sua idade.</p>
-        <div class="space-y-3">
-            <button onclick="confirmAge()" class="w-full py-3.5 bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-bold rounded-xl shadow-lg transition active:scale-95">SIM, TENHO MAIS DE 18 ANOS</button>
-            <button onclick="rejectAge()" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-400 rounded-xl transition">NÃO SOU MAIOR DE IDADE</button>
-        </div>
-    </div>
-</div>
-
-<!-- HEADER / MENU TOPO -->
-<header class="fixed top-0 w-full z-50 glass-effect">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-        <!-- LOGO -->
-        <a href="#" class="flex items-center gap-2">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center text-white shadow-lg">
-                <i class="fa-solid fa-bolt"></i>
-            </div>
-            <div class="flex flex-col leading-tight">
-                <span class="text-xl font-black tracking-tight text-white">POD<span class="text-cyan-400">CURITIBA</span></span>
-                <span class="text-[9px] text-slate-400 uppercase tracking-widest font-bold">Motoboy Express</span>
-            </div>
-        </a>
-
-        <!-- BUSCA -->
-        <div class="hidden md:flex flex-1 max-w-md relative">
-            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i>
-            <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Buscar marcas ou sabores..." class="w-full bg-slate-900 border border-slate-800 rounded-full pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:border-purple-500">
-        </div>
-
-        <!-- BOTÕES DIREITA -->
-        <div class="flex items-center gap-3">
-            <button onclick="openAdminModal()" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg bg-purple-500/10 text-purple-400 hover:bg-purple-500/20 text-xs font-bold transition border border-purple-500/30">
-                <i class="fa-solid fa-sliders"></i> Painel Admin
-            </button>
-            <button onclick="toggleCart()" class="relative flex items-center gap-2 px-4 py-2 rounded-full bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg transition active:scale-95">
-                <i class="fa-solid fa-bag-shopping"></i>
-                <span class="hidden sm:inline">Carrinho</span>
-                <span id="cartBadge" class="bg-slate-950 px-2 py-0.5 rounded-full text-xs border border-white/20">0</span>
-            </button>
-        </div>
-    </div>
-</header>
-
-<!-- MAIN CONTENT -->
-<main class="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    <!-- HERO SECTION -->
-    <div class="py-10 text-center md:text-left flex flex-col md:flex-row items-center gap-8">
-        <div class="flex-1 space-y-6">
-            <div class="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold">
-                <i class="fa-solid fa-motorcycle mr-1"></i> Entrega Expressa para Curitiba e RMC
-            </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">
-                Seus Pods Favoritos <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 neon-glow">Na Velocidade da Luz.</span>
-            </h1>
-            <p class="text-slate-400 max-w-xl text-sm md:text-base mx-auto md:mx-0">
-                Trabalhamos apenas com produtos 100% originais. Faça seu pedido agora e receba no mesmo dia via motoboy.
-            </p>
-            <div class="flex justify-center md:justify-start gap-4">
-                <a href="#catalog" class="px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-full transition shadow-lg shadow-purple-500/25">Ver Produtos</a>
-                <a href="https://wa.me/5541997029712" target="_blank" class="px-6 py-3 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-bold rounded-full hover:bg-emerald-500/20 transition flex items-center gap-2">
-                    <i class="fa-brands fa-whatsapp"></i> Chamar no Whats
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- FILTROS E BUSCA MOBILE -->
-    <div id="catalog" class="pt-10 mb-8 space-y-4">
-        <div class="md:hidden relative mb-4">
-            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i>
-            <input type="text" oninput="handleSearch(this.value)" placeholder="Buscar pods..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500">
-        </div>
-        
-        <div class="flex overflow-x-auto gap-2 pb-2 no-scrollbar">
-            <button onclick="filterBrand('Todas')" class="bg-purple-600 text-white px-5 py-2 rounded-full text-sm font-bold whitespace-nowrap">Todas as Marcas</button>
-            <button onclick="filterBrand('Ignite')" class="bg-slate-900 text-slate-300 hover:text-white px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap border border-slate-800">Ignite</button>
-            <button onclick="filterBrand('Elfbar')" class="bg-slate-900 text-slate-300 hover:text-white px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap border border-slate-800">Elfbar</button>
-            <button onclick="filterBrand('Oxbar')" class="bg-slate-900 text-slate-300 hover:text-white px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap border border-slate-800">Oxbar</button>
-        </div>
-    </div>
-
-    <!-- GRID DE PRODUTOS -->
-    <div id="productsGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        <!-- Produtos renderizados via JS -->
-    </div>
-
-</main>
-
-<!-- BOTÃO WHATSAPP FLUTUANTE -->
-<a href="https://wa.me/5541997029712" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-emerald-500 text-white rounded-full flex items-center justify-center text-3xl shadow-lg shadow-emerald-500/30 hover:scale-110 transition z-40">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
-
-<!-- CARRINHO LATERAL -->
-<div id="cartSidebar" class="fixed inset-y-0 right-0 w-full max-w-sm bg-slate-900 border-l border-slate-800 shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 flex flex-col">
-    <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
-        <h3 class="font-black text-lg flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-purple-400"></i> Seu Carrinho</h3>
-        <button onclick="toggleCart()" class="text-slate-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-xl"></i></button>
-    </div>
-    
-    <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-4">
-        <!-- Itens do carrinho JS -->
-    </div>
-
-    <div class="p-4 border-t border-slate-800 bg-slate-950 space-y-4">
-        <div class="flex justify-between text-slate-400 text-sm">
-            <span>Subtotal</span>
-            <span id="cartSubtotal" class="text-white font-bold">R$ 0,00</span>
-        </div>
-        <div class="flex justify-between text-slate-400 text-sm">
-            <span>Entrega</span>
-            <span class="text-cyan-400 font-bold">A combinar</span>
-        </div>
-        <button onclick="checkoutWhatsApp()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-white font-black rounded-xl flex items-center justify-center gap-2 transition active:scale-95 shadow-lg shadow-emerald-500/20">
-            <i class="fa-brands fa-whatsapp text-lg"></i> ENVIAR PEDIDO NO WHATSAPP
-        </button>
-    </div>
-</div>
-
-<!-- PAINEL ADMIN MODAL -->
-<div id="adminModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/90 backdrop-blur-sm p-4 overflow-y-auto">
-    <div class="bg-slate-900 border border-purple-500/30 p-6 rounded-2xl w-full max-w-lg my-auto relative shadow-2xl">
-        <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-        <h2 class="text-xl font-black text-white mb-4 flex items-center gap-2"><i class="fa-solid fa-lock text-purple-400"></i> Painel do Dono</h2>
-        
-        <form onsubmit="saveProduct(event)" class="space-y-3">
-            <input type="text" id="admName" required placeholder="Nome do Pod (ex: Ignite V80)" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white">
-            <input type="text" id="admFlavor" required placeholder="Sabor (ex: Melancia Ice)" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white">
-            <div class="grid grid-cols-2 gap-3">
-                <input type="number" id="admPrice" required placeholder="Preço (R$)" step="0.01" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white">
-                <select id="admBrand" required class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-white">
-                    <option value="Ignite">Ignite</option>
-                    <option value="Elfbar">Elfbar</option>
-                    <option value="Oxbar">Oxbar</option>
-                    <option value="Outros">Outros</option>
-                </select>
-            </div>
-            <div class="p-3 border border-slate-800 rounded-lg bg-slate-950">
-                <label class="block text-xs font-bold text-slate-400 mb-2">Foto do Produto (Escolha do celular ou cole o link)</label>
-                <input type="file" id="admImageFile" accept="image/*" class="w-full text-xs text-slate-400 mb-2">
-                <p class="text-xs text-center text-slate-500 mb-2">OU</p>
-                <input type="url" id="admImageUrl" placeholder="Cole o link da foto (https://...)" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-sm text-white">
-            </div>
-            <button type="submit" class="w-full py-3 bg-purple-600 text-white font-bold rounded-lg mt-2">Salvar Produto</button>
-        </form>
-
-        <div class="mt-6 pt-4 border-t border-slate-800">
-            <h3 class="text-sm font-bold text-slate-400 mb-2">Produtos Cadastrados (Clique no 🗑️ para excluir)</h3>
-            <div id="adminProductList" class="max-h-40 overflow-y-auto space-y-2"></div>
-        </div>
-    </div>
-</div>
-
-<!-- SCRIPTS -->
-<script>
-    // Verificação de Idade
-    if(!localStorage.getItem('ageVerified')) {
-        document.getElementById('ageModal').classList.remove('hidden');
-    } else {
-        document.getElementById('ageModal').classList.add('hidden');
-    }
-    function confirmAge() {
-        localStorage.setItem('ageVerified', 'true');
-        document.getElementById('ageModal').classList.add('hidden');
-    }
-    function rejectAge() {
-        window.location.href = "https://www.google.com";
-    }
-
-    // Banco de Dados Padrão (Fallback)
-    const defaultProducts = [
-        { id: 1, name: "Ignite V80", flavor: "Watermelon Ice", price: 125.00, brand: "Ignite", img: "https://d2j6dbq0eux0bg.cloudfront.net/images/91599818/3889158019.jpg" },
-        { id: 2, name: "Ignite V15", flavor: "Blueberry Ice", price: 65.00, brand: "Ignite", img: "https://d2j6dbq0eux0bg.cloudfront.net/images/91599818/3956385317.jpg" },
-        { id: 3, name: "Elfbar BC10000", flavor: "Grape Ice", price: 115.00, brand: "Elfbar", img: "https://d2j6dbq0eux0bg.cloudfront.net/images/91599818/3889163273.jpg" },
-        { id: 4, name: "Oxbar Magic Maze", flavor: "Mint", price: 130.00, brand: "Oxbar", img: "https://d2j6dbq0eux0bg.cloudfront.net/images/91599818/3889163901.jpg" }
-    ];
-
-    // Carregar produtos do LocalStorage ou Padrão
-    let products = JSON.parse(localStorage.getItem('podcuritiba_products')) || defaultProducts;
-    let cart = JSON.parse(localStorage.getItem('podcuritiba_cart')) || [];
-    let currentFilter = 'Todas';
-    let currentSearch = '';
-
-    // Renderizar Produtos
-    function renderProducts() {
-        const grid = document.getElementById('productsGrid');
-        grid.innerHTML = '';
-        
-        let filtered = products.filter(p => {
-            const matchBrand = currentFilter === 'Todas' || p.brand === currentFilter;
-            const matchSearch = p.name.toLowerCase().includes(currentSearch.toLowerCase()) || p.flavor.toLowerCase().includes(currentSearch.toLowerCase());
-            return matchBrand && matchSearch;
-        });
-
-        if(filtered.length === 0) {
-            grid.innerHTML = `<div class="col-span-full text-center py-10 text-slate-500">Nenhum produto encontrado.</div>`;
-            return;
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcuritiba - Entrega Expressa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8a2be2',
+                        secondary: '#00ffff',
+                        darkBg: '#0d0d12',
+                        cardBg: '#1a1a24'
+                    }
+                }
+            }
         }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Neon Style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-darkBg text-white min-h-screen font-sans selection:bg-secondary selection:text-black">
 
-        filtered.forEach(p => {
-            grid.innerHTML += `
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg group">
-                    <div class="relative aspect-square bg-white flex items-center justify-center p-4">
-                        <img src="${p.img || 'https://via.placeholder.com/200?text=Sem+Foto'}" alt="${p.name}" class="w-full h-full object-contain group-hover:scale-110 transition duration-300">
-                    </div>
-                    <div class="p-4">
-                        <span class="text-[10px] uppercase font-black text-purple-400 tracking-wider">${p.brand}</span>
-                        <h3 class="font-bold text-white text-sm truncate leading-tight">${p.name}</h3>
-                        <p class="text-xs text-slate-400 mb-3 truncate">${p.flavor}</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-black text-cyan-400">R$ ${parseFloat(p.price).toFixed(2).replace('.', ',')}</span>
-                            <button onclick="addToCart(${p.id})" class="w-8 h-8 rounded-full bg-purple-600 hover:bg-purple-500 text-white flex items-center justify-center transition active:scale-90">
-                                <i class="fa-solid fa-plus text-xs"></i>
-                            </button>
-                        </div>
-                    </div>
+    <!-- MODAL +18 (Verificação de Idade) -->
+    <div id="ageModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md px-4">
+        <div class="bg-cardBg border border-purple-500/30 p-8 rounded-3xl max-w-md w-full text-center shadow-[0_0_50px_rgba(138,43,226,0.2)]">
+            <div class="w-16 h-16 bg-purple-500/10 border border-purple-500/30 rounded-full flex items-center justify-center mx-auto mb-6 text-secondary text-2xl">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h2 class="text-2xl font-black text-white mb-2">VOCÊ TEM MAIS DE 18 ANOS?</h2>
+            <p class="text-slate-400 text-sm mb-6">A venda de produtos com nicotina é proibida para menores. Por favor, confirme sua idade.</p>
+            <div class="space-y-3">
+                <button onclick="confirmAge()" class="w-full py-3.5 bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-bold rounded-xl shadow-lg transition duration-300">
+                    SIM, TENHO MAIS DE 18 ANOS
+                </button>
+                <button onclick="rejectAge()" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold rounded-xl transition duration-300">
+                    NÃO SOU MAIOR DE IDADE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER / MENU TOPO -->
+    <header class="fixed top-0 w-full z-50 bg-darkBg/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <!-- LOGO -->
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-cyan-400 flex items-center justify-center shadow-[0_0_15px_rgba(0,255,255,0.4)]">
+                    <i class="fa-solid fa-bolt text-darkBg font-black text-lg"></i>
                 </div>
-            `;
-        });
-    }
-
-    // Filtros e Busca
-    function filterBrand(brand) { currentFilter = brand; renderProducts(); }
-    function handleSearch(val) { currentSearch = val; renderProducts(); }
-
-    // Carrinho Lógica
-    function toggleCart() {
-        const cartSidebar = document.getElementById('cartSidebar');
-        cartSidebar.classList.toggle('translate-x-full');
-        renderCart();
-    }
-
-    function addToCart(id) {
-        const product = products.find(p => p.id === id);
-        const existing = cart.find(c => c.id === id);
-        if(existing) existing.qtd++;
-        else cart.push({...product, qtd: 1});
-        
-        saveCart();
-        updateCartBadge();
-        
-        // Efeito visual no botão de carrinho do topo
-        const btn = document.getElementById('cartBadge').parentElement;
-        btn.classList.add('scale-110', 'bg-cyan-500');
-        setTimeout(() => btn.classList.remove('scale-110', 'bg-cyan-500'), 200);
-    }
-
-    function removeFromCart(id) {
-        cart = cart.filter(c => c.id !== id);
-        saveCart();
-        renderCart();
-        updateCartBadge();
-    }
-
-    function saveCart() { localStorage.setItem('podcuritiba_cart', JSON.stringify(cart)); }
-    function updateCartBadge() {
-        const total = cart.reduce((acc, item) => acc + item.qtd, 0);
-        document.getElementById('cartBadge').innerText = total;
-    }
-
-    function renderCart() {
-        const container = document.getElementById('cartItems');
-        const totalEl = document.getElementById('cartSubtotal');
-        container.innerHTML = '';
-        
-        if(cart.length === 0) {
-            container.innerHTML = '<p class="text-slate-500 text-center text-sm mt-10">Seu carrinho está vazio.</p>';
-            totalEl.innerText = 'R$ 0,00';
-            return;
-        }
-
-        let total = 0;
-        cart.forEach(item => {
-            total += item.price * item.qtd;
-            container.innerHTML += `
-                <div class="flex items-center gap-3 bg-slate-950 p-2 rounded-xl border border-slate-800">
-                    <img src="${item.img || 'https://via.placeholder.com/50'}" class="w-12 h-12 object-contain bg-white rounded-lg">
-                    <div class="flex-1 min-w-0">
-                        <h4 class="text-xs font-bold text-white truncate">${item.name}</h4>
-                        <p class="text-[10px] text-slate-400">${item.flavor}</p>
-                        <span class="text-xs font-black text-cyan-400">R$ ${parseFloat(item.price).toFixed(2).replace('.', ',')} (x${item.qtd})</span>
-                    </div>
-                    <button onclick="removeFromCart(${item.id})" class="p-2 text-rose-500 hover:text-rose-400"><i class="fa-solid fa-trash"></i></button>
+                <div class="flex flex-col leading-tight">
+                    <span class="text-xl font-black tracking-tight text-white">POD<span class="text-secondary">CURITIBA</span></span>
+                    <span class="text-[9px] text-slate-400 uppercase tracking-widest font-bold">Motoboy Express & RMC</span>
                 </div>
-            `;
-        });
-        totalEl.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
-    }
+            </a>
 
-    function checkoutWhatsApp() {
-        if(cart.length === 0) return alert('Adicione produtos ao carrinho primeiro!');
-        let text = "*NOVO PEDIDO - POD CURITIBA* ⚡\n\n";
-        let total = 0;
-        cart.forEach(item => {
-            total += item.price * item.qtd;
-            text += `▪️ ${item.qtd}x ${item.name} (${item.flavor}) - R$ ${(item.price * item.qtd).toFixed(2)}\n`;
-        });
-        text += `\n*Subtotal:* R$ ${total.toFixed(2)}\n\nGostaria de combinar a entrega via motoboy!`;
-        const encoded = encodeURIComponent(text);
-        window.open(`https://wa.me/5541997029712?text=${encoded}`, '_blank');
-    }
+            <!-- BUSCA -->
+            <div class="hidden md:flex flex-1 max-w-md relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Buscar marcas ou sabores..." class="w-full bg-cardBg/80 border border-white/10 rounded-2xl pl-11 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-secondary transition">
+            </div>
 
-    // Lógica do Painel Admin
-    function openAdminModal() { document.getElementById('adminModal').classList.remove('hidden'); renderAdminList(); }
-    function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
+            <!-- BOTÕES DIREITA -->
+            <div class="flex items-center gap-3">
+                <button onclick="openAdminModal()" class="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold transition">
+                    <i class="fa-solid fa-sliders text-secondary"></i> Painel Admin
+                </button>
+                <button onclick="toggleCart()" class="relative flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600/20 to-cyan-500/20 border border-purple-500/30 hover:border-cyan-400 text-sm font-semibold transition">
+                    <i class="fa-solid fa-bag-shopping text-secondary"></i>
+                    <span class="hidden sm:inline">Carrinho</span>
+                    <span id="cartBadge" class="bg-secondary text-darkBg px-1.5 py-0.5 rounded-full text-xs font-black">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-    function saveProduct(e) {
-        e.preventDefault();
-        const fileInput = document.getElementById('admImageFile');
-        const urlInput = document.getElementById('admImageUrl').value;
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        let imgData = urlInput || 'https://via.placeholder.com/200?text=Sem+Foto';
-
-        // Se escolheu arquivo do celular, converte para Base64
-        if (fileInput.files && fileInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                addProductToDB(e.target.result);
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-        } else {
-            addProductToDB(imgData);
-        }
-    }
-
-    function addProductToDB(imgSrc) {
-        const newProduct = {
-            id: Date.now(),
-            name: document.getElementById('admName').value,
-            flavor: document.getElementById('admFlavor').value,
-            price: parseFloat(document.getElementById('admPrice').value),
-            brand: document.getElementById('admBrand').value,
-            img: imgSrc
-        };
-
-        products.unshift(newProduct); // Adiciona no início da lista
-        localStorage.setItem('podcuritiba_products', JSON.stringify(products));
-        
-        e.target.reset(); // Limpa form
-        renderProducts();
-        renderAdminList();
-        alert('Produto adicionado com sucesso!');
-    }
-
-    function renderAdminList() {
-        const list = document.getElementById('adminProductList');
-        list.innerHTML = '';
-        products.forEach(p => {
-            list.innerHTML += `
-                <div class="flex items-center justify-between bg-slate-950 p-2 rounded border border-slate-800">
-                    <div class="text-xs"><strong class="text-white">${p.name}</strong> <span class="text-slate-500">${p.flavor}</span></div>
-                    <button onclick="deleteProduct(${p.id})" class="text-rose-500 p-1"><i class="fa-solid fa-trash"></i></button>
+        <!-- HERO SECTION -->
+        <section class="py-10 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex-1 space-y-6">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-secondary text-xs font-bold tracking-wide uppercase">
+                    🚀 Entrega Rápida em Curitiba e RMC
                 </div>
-            `;
-        });
-    }
+                <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">
+                    Pods em Curitiba & <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 drop-shadow-[0_0_20px_rgba(0,255,255,0.4)]">Entrega Expressa.</span>
+                </h1>
+                <p class="text-slate-400 text-base md:text-lg max-w-xl">
+                    Sua melhor loja de pods descartáveis e vapes 100% originais em Curitiba e Região Metropolitana. Peça online e receba rapidamente via motoboy!
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center md:justify-start pt-2">
+                    <a href="#produtos" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-cyan-500 hover:opacity-90 text-white font-bold shadow-[0_0_25px_rgba(138,43,226,0.5)] transition duration-300">
+                        Ver Produtos <i class="fa-solid fa-arrow-down ml-2 text-xs"></i>
+                    </a>
+                    <a href="https://wa.me/5541997029712" target="_blank" class="px-8 py-4 rounded-2xl bg-cardBg hover:bg-white/5 border border-white/10 text-white font-bold flex items-center gap-3 transition">
+                        <i class="fa-brands fa-whatsapp text-green-400 text-lg"></i> Pedir no Whats
+                    </a>
+                </div>
+            </div>
+        </section>
 
-    function deleteProduct(id) {
-        if(confirm('Tem certeza que deseja excluir este produto?')) {
-            products = products.filter(p => p.id !== id);
-            localStorage.setItem('podcuritiba_products', JSON.stringify(products));
-            renderProducts();
-            renderAdminList();
+        <!-- SECÇÃO DE DESTAQUES / INFO -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
+            <div class="p-6 rounded-3xl bg-cardBg border border-white/5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400 text-xl">
+                    <i class="fa-solid fa-motorcycle"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Motoboy Express</h3>
+                    <p class="text-slate-400 text-xs">Curitiba & Região Metropolitana</p>
+                </div>
+            </div>
+            <div class="p-6 rounded-3xl bg-cardBg border border-white/5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-secondary text-xl">
+                    <i class="fa-solid fa-shield-check"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">100% Originais</h3>
+                    <p class="text-slate-400 text-xs">Qualidade garantida e testada</p>
+                </div>
+            </div>
+            <div class="p-6 rounded-3xl bg-cardBg border border-white/5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-400 text-xl">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-base">Atendimento Rápido</h3>
+                    <p class="text-slate-400 text-xs">Suporte direto pelo WhatsApp</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATÁLOGO DE PRODUTOS -->
+        <div id="produtos" class="space-y-6 pt-10">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-black text-white">Seus Pods Favoritos</h2>
+            </div>
+            
+            <!-- LISTA DE PRODUTOS -->
+            <div id="productList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Os produtos cadastrados aparecem aqui automaticamente -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- BOTÃO FLUTUANTE WHATSAPP -->
+    <a href="https://wa.me/5541997029712" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-400 text-white rounded-full flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(34,197,94,0.6)] transition transform hover:scale-110">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 py-8 text-center text-slate-500 text-xs">
+        <p>&copy; 2026 Podcuritiba. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- SCRIPTS BÁSICOS DO SITE -->
+    <script>
+        function confirmAge() {
+            document.getElementById('ageModal').style.display = 'none';
         }
-    }
-
-    // Init
-    renderProducts();
-    updateCartBadge();
-</script>
-
+        function rejectAge() {
+            alert('Acesso negado para menores de 18 anos.');
+            window.location.href = 'https://www.google.com';
+        }
+        function toggleCart() {
+            alert('O seu carrinho está vazio.');
+        }
+        function openAdminModal() {
+            alert('Painel administrativo da loja.');
+        }
+        function handleSearch(val) {
+            console.log("Pesquisando:", val);
+        }
+    </script>
+</body>
+</html>
