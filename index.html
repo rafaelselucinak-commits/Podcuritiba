@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Podcuritiba - Entrega Expressa</title>
-    <!-- Tailwind CSS -->
+    <meta name="description" content="Entregas de pod no mesmo dia! Garanta os melhores vapes e pods em Curitiba e região com a nossa entrega rápida por motoboy. Qualidade garantida."><!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,25 +27,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-darkBg text-white min-h-screen font-sans selection:bg-secondary selection:text-black">
-
-    <!-- MODAL +18 (Verificação de Idade) -->
-    <div id="ageModal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md px-4">
-        <div class="bg-cardBg border border-purple-500/30 p-8 rounded-3xl max-w-md w-full text-center shadow-[0_0_50px_rgba(138,43,226,0.2)]">
-            <div class="w-16 h-16 bg-purple-500/10 border border-purple-500/30 rounded-full flex items-center justify-center mx-auto mb-6 text-secondary text-2xl">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <h2 class="text-2xl font-black text-white mb-2">VOCÊ TEM MAIS DE 18 ANOS?</h2>
-            <p class="text-slate-400 text-sm mb-6">A venda de produtos com nicotina é proibida para menores. Por favor, confirme sua idade.</p>
-            <div class="space-y-3">
-                <button onclick="confirmAge()" class="w-full py-3.5 bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-bold rounded-xl shadow-lg transition duration-300">
-                    SIM, TENHO MAIS DE 18 ANOS
-                </button>
-                <button onclick="rejectAge()" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold rounded-xl transition duration-300">
-                    NÃO SOU MAIOR DE IDADE
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- HEADER / MENU TOPO -->
     <header class="fixed top-0 w-full z-50 bg-darkBg/80 backdrop-blur-md border-b border-white/10">
